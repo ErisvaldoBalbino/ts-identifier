@@ -1,6 +1,7 @@
-package tests;
+package test;
 import org.junit.jupiter.api.Test;
-import testIdentifier.Identifier;
+
+import main.Identifier;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;

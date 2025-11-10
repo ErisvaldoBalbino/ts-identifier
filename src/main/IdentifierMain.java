@@ -1,4 +1,4 @@
-package testIdentifier;
+package main;
 
 public class IdentifierMain {
 

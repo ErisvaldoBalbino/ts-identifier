@@ -1,5 +1,5 @@
 package tests;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import testIdentifier.Identifier;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

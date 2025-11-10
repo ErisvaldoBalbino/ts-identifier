@@ -9,48 +9,67 @@ public class IdentifierTest {
     private final Identifier id = new Identifier();
 
     @Test
-    public void testMinLength() {
-        assertTrue(id.validateIdentifier("a"));
-    }
-
-    @Test
-    public void testMaxLength() {
-        assertTrue(id.validateIdentifier("string"));
-    }
-
-    @Test
-    public void testEmpty() {
+    public void testCT01_EmptyString() {
         assertFalse(id.validateIdentifier(""));
     }
 
     @Test
-    public void testExceedMaxLength() {
-        assertFalse(id.validateIdentifier("stringmuitogrande"));
+    public void testCT02_ValidMinLength() {
+        assertTrue(id.validateIdentifier("a"));
     }
 
     @Test
-    public void testStartsWithNumeric() {
-        assertFalse(id.validateIdentifier("1strin"));
+    public void testCT03_ValidWithDigit() {
+        assertTrue(id.validateIdentifier("a1"));
     }
 
     @Test
-    public void testStartWithInvalidCharacter() {
-        assertFalse(id.validateIdentifier("_strin"));
+    public void testCT04_ValidMidLength() {
+        assertTrue(id.validateIdentifier("a1234"));
     }
 
     @Test
-    public void testStartWithLetter() {
-        assertTrue(id.validateIdentifier("a5"));
+    public void testCT05_ValidMaxLength() {
+        assertTrue(id.validateIdentifier("a12345"));
     }
 
     @Test
-    public void testContainsOnlyDigits() {
-        assertFalse(id.validateIdentifier("665432"));
+    public void testCT06_InvalidLength() {
+        assertFalse(id.validateIdentifier("a123456"));
     }
 
     @Test
-    public void testContainsInvalidCharacter() {
-        assertFalse(id.validateIdentifier("B*ss1"));
+    public void testCT07_InvalidStartWithDigit() {
+        assertFalse(id.validateIdentifier("1a"));
     }
 
+    @Test
+    public void testCT08_InvalidStartWithSymbol() {
+        assertFalse(id.validateIdentifier("_a"));
+    }
+
+    @Test
+    public void testCT09_InvalidContainsSymbol() {
+        assertFalse(id.validateIdentifier("a-1"));
+    }
+
+    @Test
+    public void testCT10_InvalidContainsSpace() {
+        assertFalse(id.validateIdentifier("a 1"));
+    }
+
+    @Test
+    public void testCT11_ValidMixedCase() {
+        assertTrue(id.validateIdentifier("A1b2C"));
+    }
+
+    @Test
+    public void testCT12_ValidOnlyLetters() {
+        assertTrue(id.validateIdentifier("Abc"));
+    }
+
+    @Test
+    public void testNullInput() {
+        assertFalse(id.validateIdentifier(null));
+    }
 }

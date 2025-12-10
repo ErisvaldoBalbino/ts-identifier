@@ -1,7 +1,11 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from identifier_class import Identifier
 import pytest
 
-class TestIdentifier:
+class TestIdentifierFunctional:
     def setup_method(self):
         self.validator = Identifier()
 

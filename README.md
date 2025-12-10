@@ -16,7 +16,7 @@ A função retorna um valor booleano indicando se o identificador é válido.
 
 ---
 
-## Projeto dos Casos de Teste
+## Projeto dos Casos de Teste Funcionais
 
 Para garantir a robustez do programa, foram aplicadas as técnicas de Particionamento em Classes de Equivalência e Análise de Valor Limite.
 
@@ -46,7 +46,6 @@ A análise de valor limite foi aplicada à regra de comprimento do identificador
 
 ### 3. Tabela de Casos de Teste
 
-
 | ID   | Entrada             | Classe(s) de Equivalência Atendida(s) | Resultado Esperado |
 |------|---------------------|---------------------------------------|--------------------|
 | CT01 | `""`                | (4)                                   | Inválido           |
@@ -57,3 +56,35 @@ A análise de valor limite foi aplicada à regra de comprimento do identificador
 | CT06 | `"A#$12"`           | (7)                                   | Inválido           |
 
 ---
+
+## Diferença entre Testes Funcionais e Estruturais
+
+### Testes Funcionais (Caixa Preta)
+Os testes funcionais verificam **o que** o sistema faz, baseando-se apenas nos requisitos e especificações, sem conhecimento do código fonte interno. O foco é garantir que para uma dada entrada, a saída esteja correta conforme as regras de negócio (ex: Particionamento em Classes de Equivalência).
+
+### Testes Estruturais (Caixa Branca)
+Os testes estruturais verificam **como** o sistema funciona, baseando-se na análise do código fonte. O foco é garantir que a lógica interna foi totalmente exercitada.
+
+#### Critério de Fluxo de Controle Utilizado
+
+Neste projeto, utilizamos critérios baseados no Grafo de Fluxo de Controle (GFC):
+
+1.  **Todos-Nós:** Garante que cada linha de código foi executada pelo menos uma vez.
+2.  **Todos-Arcos:** Garante que cada desvio (arestas do grafo) foi percorrido. Ou seja, para cada decisão (`if`, loops), testamos tanto o caminho **Verdadeiro** quanto o **Falso**.
+
+**Critério Adotado:** O conjunto de testes abaixo atende ao critério de **Todos-Arcos**, que é mais rigoroso e consequentemente satisfaz também o critério de **Todos-Nós**. Isso garante que não apenas passamos por todas as linhas, mas validamos a lógica de decisão em todos os seus resultados possíveis.
+
+## Casos de Teste Estruturais
+
+O objetivo destes testes é atingir 100% de cobertura de instruções e decisões no método `validate_identifier`.
+
+| ID | Cenário | Entrada | Resultado Esperado | O que testa (Cobertura de Arcos) |
+|:---:|:---|:---|:---:|:---|
+| **CTE01** | **Entrada não é string** | `None` ou `123` | `False` | Arco `False` da verificação de tipo. |
+| **CTE02** | **String vazia** | `""` | `False` | Arco `False` da validação de tamanho (limite inferior). |
+| **CTE03** | **Tamanho excedido** | `"abcdefg"` | `False` | Arco `False` da validação de tamanho (limite superior). |
+| **CTE04** | **Primeiro caractere inválido (Dígito)** | `"2"` | `False` | Arco `False` da função `valid_s`. |
+| **CTE05** | **Primeiro caractere inválido (Símbolo)** | `"#abc"` | `False` | Arco `False` da função `valid_s` (variação). |
+| **CTE06** | **Caractere subsequente inválido** | `"a-bc"` | `False` | Arco `True` do Loop -> Arco `False` de `valid_f`. |
+| **CTE07** | **Identificador Válido (Mínimo)** | `"z"` | `True` | Arco `True` das validações iniciais -> Arco `False` do Loop (não entra) -> Retorno True. |
+| **CTE08** | **Identificador Válido (Máximo)** | `"a1B2c3"` | `True` | Arco `True` das validações -> Arco `True` do Loop (completo) -> Retorno True. |

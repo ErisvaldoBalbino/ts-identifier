@@ -1,4 +1,21 @@
-# Atividade Prática – Testes Funcionais: Identifier
+# Identifier
+
+Testes funcionais com classes de equivalência e valor limite, integrados ao GitHub Actions
+
+Atividade de **Teste de Software** (TS) — IFRN.
+
+## Stack
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
+
+## Como rodar
+
+```bash
+pip install pytest
+pytest
+```
+
+Os testes também rodam no GitHub Actions a cada push.
 
 ## Objetivo
 
